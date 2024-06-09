@@ -1,0 +1,48 @@
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+class Solution:
+    def isValidSequence(self, root: TreeNode, arr:list[int]) -> bool:
+        if not root or not arr:
+            return False
+        return self.dfs(root, arr, 0)
+
+    def dfs(self, node, arr, i):
+        if not node or i >= len(arr) or node.val!= arr[i]:
+            return False
+        if i == len(arr) - 1:
+            return not node.left and not node.right
+        return self.dfs(node.left, arr, i + 1) or self.dfs(node.right, arr, i + 1)
+def stringToTreeNode(input):
+    inputValues = input
+    root = TreeNode(inputValues[0])
+    nodeQueue = [root]
+    front = 0
+    index = 1
+    while index < len(inputValues):
+        node = nodeQueue[front]
+        front = front + 1
+
+        leftNumber = inputValues[index]
+        index = index + 1
+        if leftNumber!= "null":
+            node.left = TreeNode(leftNumber)
+            nodeQueue.append(node.left)
+
+        if index >= len(inputValues):
+            break
+
+        rightNumber = inputValues[index]
+        index = index + 1
+        if rightNumber!= "null":
+            node.right = TreeNode(rightNumber)
+            nodeQueue.append(node.right)
+    return root
+root1 = stringToTreeNode([0,1,0,0,1,0,None,None,1,0,0])
+arr1 = [0,1,0,1]
+print(Solution().isValidSequence(root1, arr1))  
+root2 = stringToTreeNode([0,1,0,0,1,0,None,None,1,0,0])
+arr2 = [0,0,1]
+print(Solution().isValidSequence(root2, arr2)) 
