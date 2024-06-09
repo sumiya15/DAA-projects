@@ -1,0 +1,25 @@
+class BinaryMatrix:
+    def __init__(self, matrix):
+        self.matrix = matrix
+
+    def get(self, row, col):
+        return self.matrix[row][col]
+
+    def dimensions(self):
+        return [len(self.matrix), len(self.matrix[0])]
+
+def leftMostColumnWithOne(binaryMatrix):
+    rows, cols = binaryMatrix.dimensions()
+    low, high = 0, cols - 1
+    while low < high:
+        mid = (low + high) // 2
+        if any(binaryMatrix.get(i, mid) == 1 for i in range(rows)):
+            high = mid
+        else:
+            low = mid + 1
+    return low if any(binaryMatrix.get(i, low) == 1 for i in range(rows)) else -1
+
+matrix =  [[0,0],[1,1]]
+
+binaryMatrix = BinaryMatrix(matrix)
+print(leftMostColumnWithOne(binaryMatrix))
