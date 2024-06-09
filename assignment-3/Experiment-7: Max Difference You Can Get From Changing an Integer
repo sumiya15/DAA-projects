@@ -1,0 +1,11 @@
+def maximumGap(num: int) -> int:
+    num_str = str(num)
+    max_digit = max(int(d) for d in num_str)
+    min_digit = min(int(d) for d in num_str)
+    
+    a = int(''.join('9' if d == str(max_digit) else d for d in num_str))
+    b = int(''.join('1' if d == str(max_digit) else '0' if d == str(min_digit) else d for d in num_str))
+    
+    return a - b
+print(maximumGap(555)) 
+print(maximumGap(9)) 
