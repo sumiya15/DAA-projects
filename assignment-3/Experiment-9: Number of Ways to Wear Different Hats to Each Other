@@ -1,0 +1,20 @@
+def numberWays(hats):
+    MOD = 10**9 + 7
+    n = len(hats)
+    hats.sort(key=lambda x: len(x))
+    dp = [{} for _ in range(1 << n)]
+    dp[0][()] = 1
+    
+    for i in range(n):
+        for mask in range(1 << n):
+            if (mask >> i) & 1:
+                for hat in hats[i]:
+                    prev_mask = mask ^ (1 << i)
+                    for prev_hats in dp[prev_mask]:
+                        if hat not in prev_hats:
+                            dp[mask][prev_hats + (hat,)] = (dp[mask].get(prev_hats + (hat,), 0) + dp[prev_mask][prev_hats]) % MOD
+    
+    return sum(dp[-1].values()) % MOD
+print(numberWays([[3,4],[4,5],[5]]))  
+print(numberWays([[3,5,1],[3,5]]))  
+print(numberWays([[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4]])) 
