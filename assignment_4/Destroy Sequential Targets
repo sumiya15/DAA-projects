@@ -1,0 +1,24 @@
+def destroy_targets(nums, space):
+    remainder_count = defaultdict(int)
+    min_value_by_remainder = {}
+
+    for num in nums:
+        remainder = num % space
+        remainder_count[remainder] += 1
+        if remainder not in min_value_by_remainder or num < min_value_by_remainder[remainder]:
+            min_value_by_remainder[remainder] = num
+
+    max_count = max(remainder_count.values())
+    min_seed = min(min_value_by_remainder[r] for r in remainder_count if remainder_count[r] == max_count)
+    
+    return min_seed
+
+nums1 = [3,7,8,1,1,5]
+space1 = 2
+nums2 = [1,3,5,2,4,6]
+space2 = 2
+nums3 = [6,2,5]
+space3 = 100 # Output: 1
+print(destroy_targets(nums2, space2))  
+print(destroy_targets(nums3, space3)) 
+
