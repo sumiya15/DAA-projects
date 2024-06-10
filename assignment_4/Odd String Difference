@@ -1,0 +1,14 @@
+def odd_string(words):
+    def get_difference_array(word):
+        return [ord(word[i + 1]) - ord(word[i]) for i in range(len(word) - 1)]
+    
+    difference_arrays = [get_difference_array(word) for word in words]
+    
+    for i in range(len(difference_arrays)):
+        if difference_arrays.count(difference_arrays[i]) == 1:
+            return words[i]
+
+words1 = ["adc","wzy","abc"]
+words2 = ["aaa","bob","ccc","ddd"]
+print(odd_string(words1))  # Output: "abc"
+print(odd_string(words2))  # Output: "bob"
