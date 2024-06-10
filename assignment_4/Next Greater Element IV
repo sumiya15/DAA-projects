@@ -1,0 +1,30 @@
+def next_greater_element(nums):
+    n = len(nums)
+    result = [-1] * n
+    first_greater = [-1] * n
+    stack = []
+    
+    for i in range(n - 1, -1, -1):
+        while stack and nums[stack[-1]] <= nums[i]:
+            stack.pop()
+        if stack:
+            first_greater[i] = stack[-1]
+        stack.append(i)
+    
+    for i in range(n - 1, -1, -1):
+        if first_greater[i] != -1:
+            j = first_greater[i]
+            while stack and nums[stack[-1]] <= nums[j]:
+                stack.pop()
+            if stack:
+                result[i] = nums[stack[-1]]
+        stack.append(i)
+    
+    return result
+
+# Example usage:
+nums1 = [2,4,0,9,6]
+nums2 = [3,3]
+print(next_greater_element(nums1))  
+print(next_greater_element(nums2))  
+
