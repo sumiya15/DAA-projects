@@ -1,0 +1,27 @@
+def sort_with_empty_space(nums):
+    n = len(nums)
+    empty_pos = nums.index(0)
+    target_pos = 0 if nums[-1] == 0 else n - 1
+    moves = 0
+    
+    while empty_pos != target_pos:
+        target = (empty_pos + 1) % n if empty_pos == 0 else empty_pos - 1
+        nums[empty_pos], nums[target] = nums[target], nums[empty_pos]
+        empty_pos = target
+        moves += 1
+
+    while nums != sorted(nums[:-1]) + [0] and nums != [0] + sorted(nums[1:]):
+        for i in range(n):
+            if nums[i] != i:
+                nums[empty_pos], nums[i] = nums[i], nums[empty_pos]
+                empty_pos = i
+                moves += 1
+    
+    return moves
+nums1 = [4,2,0,3,1]
+nums2 = [1,2,3,4,0]
+nums3 = [1,0,2,4,3]
+print(sort_with_empty_space(nums1))  
+print(sort_with_empty_space(nums2))  
+print(sort_with_empty_space(nums3))  
+
