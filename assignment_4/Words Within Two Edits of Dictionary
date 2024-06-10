@@ -1,0 +1,17 @@
+def within_two_edits(queries, dictionary):
+    def is_within_two_edits(query, word):
+        return sum(1 for a, b in zip(query, word) if a != b) <= 2
+    
+    result = []
+    for query in queries:
+        if any(is_within_two_edits(query, word) for word in dictionary):
+            result.append(query)
+    return result
+
+queries1 = ["word","note","ants","wood"]
+dictionary1 = ["wood","joke","moat"]
+queries2 = ["yes"]
+dictionary2 = ["not"]
+print(within_two_edits(queries1, dictionary1)) 
+print(within_two_edits(queries2, dictionary2)) 
+
