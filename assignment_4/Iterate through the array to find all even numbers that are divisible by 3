@@ -1,0 +1,14 @@
+def average_value(nums):
+    even_div_by_three = [num for num in nums if num % 6 == 0]
+    if not even_div_by_three:
+        return 0
+    total_sum = sum(even_div_by_three)
+    count = len(even_div_by_three)
+    average = total_sum // count
+        return average
+nums1 = [1, 3, 6, 10, 12, 15]
+nums2 = [1, 2, 4, 7, 10]
+nums3 = [18, 3, 5, 6, 9, 12]
+print(average_value(nums1))  # Output: 9
+print(average_value(nums2))  # Output: 0
+print(average_value(nums3))  # Output: 12
