@@ -1,0 +1,16 @@
+def make_integer_beautiful(n, target):
+    def digit_sum(x):
+        return sum(int(d) for d in str(x))
+    
+    x = 0
+    while digit_sum(n + x) > target:
+        x += 1
+    
+    return x
+n1, target1 = 16, 6
+n2, target2 = 467, 6
+n3, target3 = 1, 1
+print(make_integer_beautiful(n1, target1))  
+print(make_integer_beautiful(n2, target2))  
+print(make_integer_beautiful(n3, target3))  
+
