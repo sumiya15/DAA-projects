@@ -1,0 +1,35 @@
+import heapq
+
+def totalCost(costs, k, candidates):
+    n = len(costs)
+    left, right = 0, n - 1
+    total_cost = 0
+    min_heap = []
+    
+    for _ in range(k):
+        if left + candidates > right:
+            for i in range(left, right + 1):
+                heapq.heappush(min_heap, (costs[i], i))
+        else:
+            for i in range(left, left + candidates):
+                heapq.heappush(min_heap, (costs[i], i))
+            for i in range(right, right - candidates, -1):
+                heapq.heappush(min_heap, (costs[i], i))
+        
+        cost, worker_index = heapq.heappop(min_heap)
+        total_cost += cost
+        costs[worker_index] = float('inf')  # mark the task as assigned
+        
+        if left + candidates > right:
+            left += 1
+        else:
+            left += 1
+            right -= 1
+    
+    return total_cost
+
+print(totalCost([17,12,10,2,7,2,11,20,8], 3, 4))  
+print(totalCost([5,2,9,4], 2, 2))  
+print(totalCost([5,2,9,4], 3, 2))  
+print(totalCost([3,2,7,7,1,2], 2, 2)) 
+print(totalCost([3,2,7,7,1,2], 2, 3))  
