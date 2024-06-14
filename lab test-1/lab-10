@@ -1,0 +1,25 @@
+import math
+
+def getPermutation(n, k):
+    
+    numbers = list(range(1, n + 1))
+    result = []
+    
+    
+    k -= 1
+    
+   
+    while n > 0:
+        
+        fact = math.factorial(n - 1)
+       
+        index = k // fact
+       
+        result.append(str(numbers.pop(index)))
+        
+        k %= fact
+        
+        n -= 1
+    return ''.join(result)
+print(getPermutation(3, 3))  
+print(getPermutation(4, 9))  
