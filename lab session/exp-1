@@ -1,0 +1,23 @@
+def min_length_after_operations(nums):
+    left = 0
+    right = len(nums) - 1
+    removed_count = 0
+    
+    while left < right:
+        # If the current smallest element is less than the current largest element,
+        # we can pair them and remove.
+        if nums[left] < nums[right]:
+            removed_count += 2
+            left += 1
+            right -= 1
+        else:
+            # If not, we cannot pair the current smallest with any element to its right,
+            # so just move the right pointer to the left.
+            right -= 1
+    
+    # The minimum length of nums after applying the operations
+    return len(nums) - removed_count
+
+# Example usage
+nums = [1, 2, 3, 4]
+print(min_length_after_operations(nums))  # Output: 0
