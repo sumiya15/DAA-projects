@@ -1,0 +1,17 @@
+from typing import List
+
+def findSubstrings(words: List[str]) -> List[str]:
+    result = []
+    
+    for i, word in enumerate(words):
+        for j, other in enumerate(words):
+            if i != j and word in other:
+                result.append(word)
+                break  # No need to check further if we already found the word as a substring
+    
+    return result
+
+# Example usage
+words = ["mass", "as", "hero", "superhero"]
+output = findSubstrings(words)
+print(output)  # Output: ["as", "hero"]
