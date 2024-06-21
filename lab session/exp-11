@@ -1,0 +1,54 @@
+MOD = 10**9 + 7
+
+def kmp_fail(evil):
+    m = len(evil)
+    fail = [0] * m
+    j = 0
+    for i in range(1, m):
+        while j > 0 and evil[i] != evil[j]:
+            j = fail[j - 1]
+        if evil[i] == evil[j]:
+            j += 1
+        fail[i] = j
+    return fail
+
+def dp(pos, isPrefix1, isPrefix2, evilPrefixLen, s1, s2, evil, fail, memo):
+    if evilPrefixLen == len(evil):
+        return 0  # Contains the evil string
+    if pos == len(s1):
+        return 1  # Reached end of string
+    
+    if (pos, isPrefix1, isPrefix2, evilPrefixLen) in memo:
+        return memo[(pos, isPrefix1, isPrefix2, evilPrefixLen)]
+    
+    res = 0
+    start = s1[pos] if isPrefix1 else 'a'
+    end = s2[pos] if isPrefix2 else 'z'
+    
+    for ch in range(ord(start), ord(end) + 1):
+        ch = chr(ch)
+        newIsPrefix1 = isPrefix1 and ch == s1[pos]
+        newIsPrefix2 = isPrefix2 and ch == s2[pos]
+        
+        k = evilPrefixLen
+        while k > 0 and ch != evil[k]:
+            k = fail[k - 1]
+        if ch == evil[k]:
+            k += 1
+        
+        res = (res + dp(pos + 1, newIsPrefix1, newIsPrefix2, k, s1, s2, evil, fail, memo)) % MOD
+    
+    memo[(pos, isPrefix1, isPrefix2, evilPrefixLen)] = res
+    return res
+
+def findGoodStrings(n, s1, s2, evil):
+    fail = kmp_fail(evil)
+    memo = {}
+    return dp(0, True, True, 0, s1, s2, evil, fail, memo)
+
+# Example Usage:
+n = 2
+s1 = "aa"
+s2 = "da"
+evil = "b"
+print(findGoodStrings(n, s1, s2, evil))  # Output: 51
