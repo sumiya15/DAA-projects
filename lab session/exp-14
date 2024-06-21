@@ -1,0 +1,23 @@
+from sortedcontainers import SortedList
+
+def countPairs(nums1, nums2, diff):
+    n = len(nums1)
+    A = [nums1[i] - nums2[i] for i in range(n)]
+    
+    sorted_list = SortedList()
+    count = 0
+    
+    for i in range(n - 1, -1, -1):
+        # Find how many elements in the sorted list are less than or equal to A[i] + diff
+        count += sorted_list.bisect_right(A[i] + diff)
+        
+        # Add the current element to the sorted list
+        sorted_list.add(A[i])
+    
+    return count
+
+# Example usage:
+nums1 = [3, 2, 5]
+nums2 = [2, 2, 1]
+diff = 1
+print(countPairs(nums1, nums2, diff))  # Output: 3
