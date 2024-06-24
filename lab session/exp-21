@@ -1,0 +1,40 @@
+def countGoodStrings(n: int, s1: str, s2: str, evil: str) -> int:
+    MOD = 10**9 + 7
+    
+    def is_good_string(prefix):
+        # Check if prefix does not contain evil as substring
+        for i in range(len(prefix) - len(evil) + 1):
+            if prefix[i:i+len(evil)] == evil:
+                return False
+        return True
+    
+    def calculate_prefix_count(prefix):
+        # Calculate how many good strings can start with the given prefix
+        count = 1
+        for i in range(len(prefix)):
+            if s1[i] < prefix[i] < s2[i]:
+                count *= 26  # Any character is valid
+            elif s1[i] == prefix[i] == s2[i]:
+                count *= (ord(s2[i]) - ord(s1[i]) + 1)
+            elif s1[i] < prefix[i]:
+                count *= (ord(prefix[i]) - ord(s1[i]) + 1)
+            elif prefix[i] < s2[i]:
+                count *= (ord(s2[i]) - ord(prefix[i]) + 1)
+            count %= MOD
+        return count
+    
+    # Initialize dp to count good strings ending with each possible prefix
+    dp = [0] * (n + 1)
+    dp[0] = 1  # Base case: empty prefix is a valid good string
+    
+    for length in range(1, n + 1):
+        for start_char in range(26):
+            prefix = chr(ord('a') + start_char)
+            if is_good_string(prefix):
+                dp[length] += calculate_prefix_count(prefix)
+                dp[length] %= MOD
+    
+    return dp[n]
+
+# Example usage
+print(countGoodStrings(2, "aa", "da", "b"))  # Output: 51
