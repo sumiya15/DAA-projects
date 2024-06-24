@@ -1,0 +1,17 @@
+def countPairs(nums1, nums2, diff):
+    n = len(nums1)
+    diff_array = [nums1[i] - nums2[i] for i in range(n)]
+    count = 0
+    
+    for i in range(n):
+        for j in range(i + 1, n):
+            if diff_array[i] <= diff_array[j] + diff:
+                count += 1
+    
+    return count
+
+# Example usage:
+nums1 = [3, 2, 5]
+nums2 = [2, 2, 1]
+diff = 1
+print(countPairs(nums1, nums2, diff))  # Output: 3
