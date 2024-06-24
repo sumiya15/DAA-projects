@@ -1,0 +1,22 @@
+def findNthDigit(n):
+    if n < 10:
+        return n
+    
+    length = 1  # Length of the current number range
+    count = 9   # Total count of digits in the current number range
+    start = 1   # Starting number of the current number range
+    
+    # Determine the length of the number that contains the nth digit
+    while n > length * count:
+        n -= length * count
+        length += 1
+        count *= 10
+        start *= 10
+    
+    # Find the actual number that contains the nth digit
+    start += (n - 1) // length
+    return int(str(start)[(n - 1) % length])
+
+# Example usage:
+print(findNthDigit(3))   # Output: 3
+print(findNthDigit(11))  # Output: 0
