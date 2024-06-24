@@ -1,0 +1,21 @@
+def min_repeats_to_contain(a: str, b: str) -> int:
+    # Determine the minimum number of repeats needed
+    repeat_count = (len(b) + len(a) - 1) // len(a)
+    
+    # Check if b is a substring of repeated a with the minimum required repeats
+    repeated_a = a * repeat_count
+    if b in repeated_a:
+        return repeat_count
+    
+    # Check if b is a substring of repeated a with one additional repeat
+    repeated_a = a * (repeat_count + 1)
+    if b in repeated_a:
+        return repeat_count + 1
+    
+    # If b is not found in either case, return -1
+    return -1
+
+# Example usage
+a = "abcd"
+b = "cdabcdab"
+print(min_repeats_to_contain(a, b))  # Output: 3
