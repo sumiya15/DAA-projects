@@ -1,0 +1,20 @@
+def transpose(matrix):
+    m = len(matrix)
+    n = len(matrix[0])
+    
+    # Initialize the transpose matrix
+    transpose_matrix = [[0] * m for _ in range(n)]
+    
+    # Fill the transpose matrix
+    for i in range(m):
+        for j in range(n):
+            transpose_matrix[j][i] = matrix[i][j]
+    
+    return transpose_matrix
+
+# Example usage:
+matrix1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+matrix2 = [[1, 2, 3], [4, 5, 6]]
+
+print(transpose(matrix1))  # Output: [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+print(transpose(matrix2))  # Output: [[1, 4], [2, 5], [3, 6]]
