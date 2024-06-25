@@ -1,0 +1,29 @@
+:Given a set of characters and their corresponding frequencies, construct the Huffman Tree and generate the Huffman Codes for each character.
+Test Case 1:
+Input:
+n = 4
+characters = ['a', 'b', 'c', 'd']
+frequencies = [5, 9, 12, 13]
+Output:[('a', '110'), ('b', '10'), ('c', '0'), ('d', '111')]
+Test Case 2:
+Input:
+n = 6
+characters = ['f', 'e', 'd', 'c', 'b', 'a']
+frequencies = [5, 9, 12, 13, 16, 45]
+Output:[ ('a', '0'), ('b', '101'), ('c', '100'), ('d', '111'), ('e', '1101'), ('f', '1100')]
+ 
+4:Given a Huffman Tree and a Huffman encoded string, decode the string to get the original message.
+Test Case 1:
+Input:
+n = 4
+characters = ['a', 'b', 'c', 'd']
+frequencies = [5, 9, 12, 13]
+encoded_string = '1101100111110'
+Output:"abacd"
+Test Case 2:
+Input:
+n = 6
+characters = ['f', 'e', 'd', 'c', 'b', 'a']
+frequencies = [5, 9, 12, 13, 16, 45]
+encoded_string = '110011011100101111001011'
+Output:"fcbade"
