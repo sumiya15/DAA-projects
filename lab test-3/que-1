@@ -1,0 +1,51 @@
+import heapq
+
+def dijkstra_adjacency_matrix(n, graph, source):
+    # Initialize distance array with infinity
+    dist = [float('inf')] * n
+    dist[source] = 0
+    
+    # Priority queue to process vertices based on distance
+    min_heap = [(0, source)]
+    
+    while min_heap:
+        curr_dist, u = heapq.heappop(min_heap)
+        
+        # If current distance is greater than stored distance, skip it
+        if curr_dist > dist[u]:
+            continue
+        
+        # Explore neighbors of u
+        for v in range(n):
+            if graph[u][v] != float('inf'):  # There is an edge from u to v
+                new_dist = dist[u] + graph[u][v]
+                
+                # If found shorter path to v through u
+                if new_dist < dist[v]:
+                    dist[v] = new_dist
+                    heapq.heappush(min_heap, (new_dist, v))
+    
+    return dist
+
+# Test Case 1
+n1 = 5
+graph1 = [
+    [0, 10, 3, float('inf'), float('inf')],
+    [float('inf'), 0, 1, 2, float('inf')],
+    [float('inf'), 4, 0, 8, 2],
+    [float('inf'), float('inf'), float('inf'), 0, 7],
+    [float('inf'), float('inf'), float('inf'), 9, 0]
+]
+source1 = 0
+print(dijkstra_adjacency_matrix(n1, graph1, source1))  # Output: [0, 7, 3, 9, 5]
+
+# Test Case 2
+n2 = 4
+graph2 = [
+    [0, 5, float('inf'), 10],
+    [float('inf'), 0, 3, float('inf')],
+    [float('inf'), float('inf'), 0, 1],
+    [float('inf'), float('inf'), float('inf'), 0]
+]
+source2 = 0
+print(dijkstra_adjacency_matrix(n2, graph2, source2))  # Output: [0, 5, 8, 9]
