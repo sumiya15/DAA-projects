@@ -1,0 +1,15 @@
+
+def containsNearbyAlmostDuplicate(nums, indexDiff, valueDiff):
+    num_dict = {}
+    for i, num in enumerate(nums):
+        if any(abs(num - x) <= valueDiff for x in num_dict.values()):
+            return True
+        num_dict[i] = num
+        if len(num_dict) > indexDiff + 1:
+            del num_dict[i - indexDiff]
+    return False
+
+nums = [1,2,3,1]
+indexDiff = 3
+valueDiff = 0
+print(containsNearbyAlmostDuplicate(nums, indexDiff, valueDiff))  
