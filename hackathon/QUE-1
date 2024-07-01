@@ -1,0 +1,35 @@
+def graph_coloring(graph):
+    """
+    Graph coloring algorithm using a greedy approach
+
+    Input:
+        graph: a dictionary representing the graph, where each key is a node and
+               the value is a list of neighboring nodes
+
+    Output:
+        A dictionary where each key is a node and the value is the assigned color
+    """
+    colors = {}
+    for node in graph:
+        neighbors = graph[node]
+        used_colors = set(colors.get(neighbor, None) for neighbor in neighbors)
+        for color in range(len(graph)):
+            if color not in used_colors:
+                colors[node] = color
+                break
+    return colors
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+colors = graph_coloring(graph)
+
+print("Node Colors:")
+for node, color in colors.items():
+    print(f"{node}: {color}")
